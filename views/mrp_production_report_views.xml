@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view for the production report -->
+    <record id="view_mrp_production_report_tree" model="ir.ui.view">
+        <field name="name">mrp.production.report.tree</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <tree string="Production Orders Report" create="false" edit="false" delete="false">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="company_id" invisible="1" optional="hide"/>
+                <field name="product_id" invisible="1" optional="hide"/>
+                <field name="lot_producing_id"/>
+                <field name="date_start"/>
+                <field name="date_finished"/>
+                <field name="duration" widget="float_time"/>
+                <field name="state"/>
+                <field name="cooking_temp"/>
+                <field name="weight_mp"/>
+                <field name="fridge_lbs"/>
+                <field name="fridge_temp"/>
+                <field name="formado_type"/>
+                <field name="formado_qty"/>
+                <field name="weight_verif"/>
+                <field name="merma_verif"/>
+                <field name="freezing_temp"/>
+                <field name="batch_lbs"/>
+                <field name="packing_time"/>
+                <field name="batch_bags"/>
+                <field name="pt_freeze_temp"/>
+                <field name="workorder_ids" invisible="1"/>
+                <button name="action_view_workorders" type="object" icon="fa-tasks" string="View Work Orders"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Work Orders Tree View -->
+    <record id="mrp_workorder_report_tree_view" model="ir.ui.view">
+        <field name="name">mrp.workorder.report.tree</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="name"/>
+                <field name="workcenter_id"/>
+                <field name="date_start"/>
+                <field name="date_finished"/>
+                <field name="duration" widget="float_time"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for Work Orders -->
+    <record id="action_workorder_lines" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="mrp_workorder_report_tree_view"/>
+        <field name="domain">[('production_id', '=', active_id)]</field>
+    </record>
+
+    <!-- Search view for filtering and grouping -->
+    <record id="view_mrp_production_report_search" model="ir.ui.view">
+        <field name="name">mrp.production.report.search</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <search string="Production Orders">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="lot_producing_id"/>
+                <field name="date_start"/>
+                <field name="date_finished"/>
+                <field name="state"/>
+                <filter string="Today" name="today" domain="[('date_start','&gt;=',time.strftime('%Y-%m-%d 00:00:00')),('date_start','&lt;=',time.strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter string="Last Week" name="last_week" domain="[('date_start','&gt;=',(context_today()-datetime.timedelta(days=7)).strftime('%Y-%m-%d')),('date_start','&lt;=',time.strftime('%Y-%m-%d'))]"/>
+                <filter string="This Month" name="this_month" domain="[('date_start','&gt;=',time.strftime('%Y-%m-01')),('date_start','&lt;=',(context_today()+datetime.timedelta(days=31)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="status" context="{'group_by': 'state'}"/>
+                    <filter string="Responsible" name="user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Lot/Serial" name="lot" context="{'group_by': 'lot_producing_id'}"/>
+                    <filter string="Start Date" name="start_date" context="{'group_by': 'date_start:day'}"/>
+                    <filter string="End Date" name="end_date" context="{'group_by': 'date_finished:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Form view for detailed information -->
+    <record id="view_mrp_production_report_form" model="ir.ui.view">
+        <field name="name">mrp.production.report.form</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <form string="Production Order Report" create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_workorders" type="object" class="oe_stat_button" icon="fa-tasks">
+                            <field name="workorder_count" widget="statinfo" string="Work Orders"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Production Information">
+                            <field name="name"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="product_id"/>
+                            <field name="user_id"/>
+                            <field name="lot_producing_id"/>
+                            <field name="date_start"/>
+                            <field name="date_finished"/>
+                            <field name="duration" widget="float_time"/>
+                            <field name="state"/>
+                        </group>
+                        <group string="Process Parameters">
+                            <field name="cooking_temp"/>
+                            <field name="weight_mp"/>
+                            <field name="fridge_lbs"/>
+                            <field name="fridge_temp"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work Orders" name="work_orders">
+                            <field name="workorder_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="workcenter_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_finished"/>
+                                    <field name="duration" widget="float_time"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Additional Parameters" name="additional_params">
+                            <group>
+                                <group string="Forming">
+                                    <field name="formado_type"/>
+                                    <field name="formado_qty"/>
+                                    <field name="weight_verif"/>
+                                    <field name="merma_verif"/>
+                                </group>
+                                <group string="Freezing">
+                                    <field name="freezing_temp"/>
+                                    <field name="batch_lbs"/>
+                                </group>
+                                <group string="Packing">
+                                    <field name="packing_time"/>
+                                    <field name="batch_bags"/>
+                                    <field name="pt_freeze_temp"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the report -->
+    <record id="action_mrp_production_report" model="ir.actions.act_window">
+        <field name="name">Production Orders Report</field>
+        <field name="res_model">mrp.production</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_mrp_production_report_search"/>
+        <field name="context">{'search_default_this_month':1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No production orders found
+            </p>
+            <p>
+                This report shows all production orders and their tracking information.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item for the report -->
+    <menuitem id="menu_mrp_production_report"
+        name="Production Traceability Report"
+        parent="mrp.menu_mrp_reporting"
+        action="action_mrp_production_report"
+        sequence="100"/>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Action -->
+    <record id="action_production_control_wizard" model="ir.actions.act_window">
+        <field name="name">Control de Producción</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">production.control.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_production_id': active_id}</field>
+    </record>
+
+    <!-- Server Action for Action Menu -->
+    <record id="action_open_production_control" model="ir.actions.server">
+        <field name="name">Control de Producción</field>
+        <field name="model_id" ref="mrp.model_mrp_production"/>
+        <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Control de Producción',
+    'res_model': 'production.control.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {'default_production_id': record.id}
+}
+        </field>
+    </record>
+</odoo>

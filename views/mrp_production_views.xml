@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_form_view_control_inherit" model="ir.ui.view">
+        <field name="name">mrp.production.form.control.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_label_type']" position="after">
+            <!-- <xpath expr="//header/button[@name='action_cancel']" position="before"> -->
+                <button name="action_discard_batch" 
+                    string="Desechar Lote" 
+                    type="object" 
+                    class="btn-warning" 
+                    invisible="state in ('draft', 'done', 'cancel')"
+                    confirm="¿Está seguro que desea desechar este lote? Esta acción no se puede deshacer."
+                    groups="mrp.group_mrp_manager"/>
+            </xpath>
+            <notebook position="inside">
+                <page string="Control de Producción" name="control">
+                    <group>
+                        <group string="Cocción">
+                            <field name="cooking_temp" string="Temperatura de Cocción (°C)"/>
+                        </group>
+                        <group string="Refrigerado">
+                            <field name="fridge_lbs" string="Libras entregadas a refrigerado"/>
+                            <field name="fridge_temp" string="Temperatura de alimentos al ingresar a refrigerado (°C)"/>
+                        </group>
+                        <group string="Formado">
+                            <field name="preformado_temp" string="Temperatura de alimentos al salir de refrigerado (°C)"/>
+                            <field name="formado_type" string="Tipo de Formado" widget="radio" options="{'horizontal': true}"/>
+                            <field name="formado_qty" string="Cantidad de bandejas formadas"/>
+                            <field name="weight_verif" string="Verificación de Peso"/>
+                            <field name="merma_verif" string="Verificación de Merma"/>
+                        </group>
+                        <group string="Ingreso a Congelado">
+                            <field name="freezing_temp" string="Temperatura de alimentos al ingresaro a congelación (°C)"/>
+                            <field name="batch_lbs" string="Libras por Batch"/>
+                        </group>
+                        <group string="Empacado">
+                            <field name="batch_bags" string="Bolsas por lote"/>
+                        </group>
+                        <group string="Ingreso a Congelado de Producto Terminado">
+                            <field name="pt_freeze_temp" string="Temperatura de congelación de producto terminado (°C)"/>
+                        </group>
+                    </group>
+                    <separator string="Observaciones o Variantes del Lote"/>
+                    <field name="batch_observations" nolabel="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
