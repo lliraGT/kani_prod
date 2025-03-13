@@ -24,6 +24,21 @@ class MrpProduction(models.Model):
     pt_freeze_temp = fields.Float(string='Temperatura de congelación de producto terminado (°C)')
     batch_observations = fields.Text(string='Observaciones o Variantes del Lote')
     
+    # New fields for ingredient weights
+    pierna_weight = fields.Float(string='Peso de Pierna y cuadril (lbs)', default=80.0)
+    higado_weight = fields.Float(string='Peso de Hígado res (lbs)', default=20.0)
+    arroz_weight = fields.Float(string='Peso de Arroz (lbs)', default=14.0)
+    avena_weight = fields.Float(string='Peso de Avena (lbs)', default=10.0)
+    chia_weight = fields.Float(string='Peso de Chía (lbs)', default=4.0)
+    guicoyitos_weight = fields.Float(string='Peso de Guicoyitos (lbs)', default=12.0)
+    acelga_weight = fields.Float(string='Peso de Acelga (lbs)', default=13.0)
+    brocoli_weight = fields.Float(string='Peso de Brócoli (lbs)', default=13.0)
+    apio_weight = fields.Float(string='Peso de Apio (lbs)', default=4.0)
+    papas_weight = fields.Float(string='Peso de Papas (lbs)', default=8.0)
+    zanahoria_weight = fields.Float(string='Peso de Zanahoria (lbs)', default=10.0)
+    camote_weight = fields.Float(string='Peso de Camote (lbs)', default=6.0)
+    yuca_weight = fields.Float(string='Peso de Yuca (lbs)', default=6.0)
+    
     def action_discard_batch(self):
         self.ensure_one()
         if self.state in ['done', 'cancel']:

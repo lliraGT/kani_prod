@@ -7,30 +7,73 @@
         <field name="arch" type="xml">
             <form string="Control de Producción">
                 <sheet>
-                    <group>
-                        <group string="Cocción">
+                    <!-- Reordered groups to match production flow -->
+                    <!-- 1. Registro de Pesos de Ingredientes -->
+                    <group string="Registro de Pesos de Ingredientes">
+                        <group>
+                            <field name="pierna_weight"/>
+                            <field name="higado_weight"/>
+                            <field name="arroz_weight"/>
+                            <field name="avena_weight"/>
+                            <field name="chia_weight"/>
+                            <field name="guicoyitos_weight"/>
+                            <field name="acelga_weight"/>
+                        </group>
+                        <group>
+                            <field name="brocoli_weight"/>
+                            <field name="apio_weight"/>
+                            <field name="papas_weight"/>
+                            <field name="zanahoria_weight"/>
+                            <field name="camote_weight"/>
+                            <field name="yuca_weight"/>
+                        </group>
+                    </group>
+                    
+                    <!-- 2. Cocción -->
+                    <group string="Cocción">
+                        <group>
                             <field name="cooking_temp"/>
                         </group>
-                        <group string="Refrigerado">
+                    </group>
+                    
+                    <!-- 3. Refrigerado -->
+                    <group string="Refrigerado">
+                        <group>
                             <field name="weight_mp"/>
                             <field name="fridge_lbs"/>
                             <field name="fridge_temp"/>
                         </group>
-                        <group string="Formado">
+                    </group>
+                    
+                    <!-- 4. Formado -->
+                    <group string="Formado">
+                        <group>
                             <field name="formado_type" widget="radio" options="{'horizontal': true}"/>
                             <field name="formado_qty"/>
                             <field name="weight_verif"/>
                             <field name="merma_verif"/>
                         </group>
-                        <group string="Ingreso a Congelado">
+                    </group>
+                    
+                    <!-- 5. Ingreso a Congelado -->
+                    <group string="Ingreso a Congelado">
+                        <group>
                             <field name="freezing_temp"/>
                             <field name="batch_lbs"/>
                         </group>
-                        <group string="Empacado">
+                    </group>
+                    
+                    <!-- 6. Empacado -->
+                    <group string="Empacado">
+                        <group>
                             <field name="packing_time"/>
                             <field name="batch_bags"/>
                         </group>
-                        <group string="Ingreso a Congelado de Producto Terminado">
+                    </group>
+                    
+                    <!-- 7. Ingreso a Congelado de Producto Terminado -->
+                    <group string="Ingreso a Congelado de Producto Terminado">
+                        <group>
                             <field name="pt_freeze_temp"/>
                         </group>
                     </group>

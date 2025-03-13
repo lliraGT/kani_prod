@@ -148,6 +148,29 @@
                                 </group>
                             </group>
                         </page>
+                        
+                        <!-- New page for ingredient weights -->
+                        <page string="Pesos de Ingredientes" name="ingredient_weights">
+                            <group>
+                                <group>
+                                    <field name="pierna_weight"/>
+                                    <field name="higado_weight"/>
+                                    <field name="arroz_weight"/>
+                                    <field name="avena_weight"/>
+                                    <field name="chia_weight"/>
+                                    <field name="guicoyitos_weight"/>
+                                    <field name="acelga_weight"/>
+                                </group>
+                                <group>
+                                    <field name="brocoli_weight"/>
+                                    <field name="apio_weight"/>
+                                    <field name="papas_weight"/>
+                                    <field name="zanahoria_weight"/>
+                                    <field name="camote_weight"/>
+                                    <field name="yuca_weight"/>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_open_label_type']" position="after">
-            <!-- <xpath expr="//header/button[@name='action_cancel']" position="before"> -->
                 <button name="action_discard_batch" 
                     string="Desechar Lote" 
                     type="object" 
@@ -17,32 +16,75 @@
             </xpath>
             <notebook position="inside">
                 <page string="Control de Producción" name="control">
-                    <group>
-                        <group string="Cocción">
+                    <!-- 1. Registro de Pesos de Ingredientes -->
+                    <group string="Registro de Pesos de Ingredientes">
+                        <group>
+                            <field name="pierna_weight"/>
+                            <field name="higado_weight"/>
+                            <field name="arroz_weight"/>
+                            <field name="avena_weight"/>
+                            <field name="chia_weight"/>
+                            <field name="guicoyitos_weight"/>
+                            <field name="acelga_weight"/>
+                        </group>
+                        <group>
+                            <field name="brocoli_weight"/>
+                            <field name="apio_weight"/>
+                            <field name="papas_weight"/>
+                            <field name="zanahoria_weight"/>
+                            <field name="camote_weight"/>
+                            <field name="yuca_weight"/>
+                        </group>
+                    </group>
+                    
+                    <!-- 2. Cocción -->
+                    <group string="Cocción">
+                        <group>
                             <field name="cooking_temp" string="Temperatura de Cocción (°C)"/>
                         </group>
-                        <group string="Refrigerado">
+                    </group>
+                    
+                    <!-- 3. Refrigerado -->
+                    <group string="Refrigerado">
+                        <group>
                             <field name="fridge_lbs" string="Libras entregadas a refrigerado"/>
                             <field name="fridge_temp" string="Temperatura de alimentos al ingresar a refrigerado (°C)"/>
                         </group>
-                        <group string="Formado">
+                    </group>
+                    
+                    <!-- 4. Formado -->
+                    <group string="Formado">
+                        <group>
                             <field name="preformado_temp" string="Temperatura de alimentos al salir de refrigerado (°C)"/>
                             <field name="formado_type" string="Tipo de Formado" widget="radio" options="{'horizontal': true}"/>
                             <field name="formado_qty" string="Cantidad de bandejas formadas"/>
                             <field name="weight_verif" string="Verificación de Peso"/>
                             <field name="merma_verif" string="Verificación de Merma"/>
                         </group>
-                        <group string="Ingreso a Congelado">
+                    </group>
+                    
+                    <!-- 5. Ingreso a Congelado -->
+                    <group string="Ingreso a Congelado">
+                        <group>
                             <field name="freezing_temp" string="Temperatura de alimentos al ingresaro a congelación (°C)"/>
                             <field name="batch_lbs" string="Libras por Batch"/>
                         </group>
-                        <group string="Empacado">
+                    </group>
+                    
+                    <!-- 6. Empacado -->
+                    <group string="Empacado">
+                        <group>
                             <field name="batch_bags" string="Bolsas por lote"/>
                         </group>
-                        <group string="Ingreso a Congelado de Producto Terminado">
+                    </group>
+                    
+                    <!-- 7. Ingreso a Congelado de Producto Terminado -->
+                    <group string="Ingreso a Congelado de Producto Terminado">
+                        <group>
                             <field name="pt_freeze_temp" string="Temperatura de congelación de producto terminado (°C)"/>
                         </group>
                     </group>
+                    
                     <separator string="Observaciones o Variantes del Lote"/>
                     <field name="batch_observations" nolabel="1"/>
                 </page>
