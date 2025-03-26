@@ -16,7 +16,7 @@
             </xpath>
             <notebook position="inside">
                 <page string="Control de Producción" name="control">
-                    <!-- 1. Registro de Pesos de Ingredientes -->
+                    <!-- 1. Registro de Pesos de Ingredientes 
                     <group string="Registro de Pesos de Ingredientes">
                         <group>
                             <field name="pierna_weight"/>
@@ -35,7 +35,7 @@
                             <field name="camote_weight"/>
                             <field name="yuca_weight"/>
                         </group>
-                    </group>
+                    </group>-->
                     
                     <!-- 2. Cocción -->
                     <group string="Cocción">
