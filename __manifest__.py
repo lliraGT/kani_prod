@@ -11,7 +11,6 @@
         'views/mrp_production_views.xml',
         'views/production_control_wizard_views.xml',
         'views/production_wizard_actions.xml', 
-        'views/mrp_production_report_views.xml',
     ],
     'installable': True,
     'application': False,
